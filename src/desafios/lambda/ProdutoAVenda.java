@@ -3,7 +3,7 @@ package desafios.lambda;
 import java.text.DecimalFormat;
 import java.util.function.*;
 
-public class ProdutoAVenda {
+public abstract class ProdutoAVenda extends Produto {
     private boolean temImpostoMunicipal(Double preco) {
         return preco >= 2500;
     }
@@ -16,13 +16,14 @@ public class ProdutoAVenda {
 
     private String precoFinalFormatado;
 
-    public ProdutoAVenda(Produto produto) {
+    public ProdutoAVenda(String nome, double valor, double desconto) {
+        super(nome, valor, desconto);
         this.precoFinalFormatado = getPrecoComDesconto
                 .andThen(addImpostoMunicipal)
                 .andThen(addFrete)
                 .andThen(arredondaPreco)
                 .andThen(formataSaida)
-                .apply(produto);
+                .apply(getProdutoInstance());
     }
 
     private final Function<Produto, Double> getPrecoComDesconto =

@@ -11,6 +11,8 @@ public abstract class Produto {
         this.desconto = desconto;
     }
 
+    protected Produto getProdutoInstance() { return this; }
+
     public String getName() {
         return name;
     }
